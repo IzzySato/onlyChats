@@ -1,41 +1,65 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express')
+const MongoClient = require('mongodb').MongoClient
+const app = express()
+const { DB_URL } = require("./credentials");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// ========================
+// Link to Database
+// ========================
 
-var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// Replace DB_URL with your actual connection string in credentials.js
+const connectionString = DB_URL
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+MongoClient.connect(connectionString, { useUnifiedTopology: true })
+  .then(client => {
+    console.log('Connected to Database')
+    const db = client.db('usr-cred')
+    const userCollection = db.collection('users')
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+    // ========================
+    // Middlewares
+    // ========================
+    app.set('view engine', 'ejs')
+    app.use(express.urlencoded({ extended: true }))
+    app.use(express.json())
+    app.use(express.static('public'))
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+    // ========================
+    // Routes
+    // ========================
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+    app.get('/', (req, res) => {
+       
+            res.render('index.ejs')
+       
+      })
 
-module.exports = app;
+    app.get('/userinfo', (req, res) => {
+      db.collection('users').find().toArray()
+        .then(users => {
+          res.render('userinfo.ejs', { users: users})
+        })
+        .catch(error => console.error(error))
+    })
+
+    app.post('/users', (req, res) => {
+       userCollection.insertOne(req.body)
+        .then(result => {
+            console.log('New user account created in the database') ; 
+          res.redirect('/userinfo')
+        })
+        .catch(error => console.error(error))
+    })
+
+   
+    // ========================
+    // Listen
+    // ========================
+    const port = 3001
+    app.listen(port, function () {
+      console.log(`listening on ${port}`)
+    })
+  })
+  .catch(console.error)

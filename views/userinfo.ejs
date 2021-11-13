@@ -1,0 +1,15 @@
+
+<section>
+
+  
+<ul class="users">
+    <h1>Present users in the database </h1>
+    <% for(var i = 0; i < users.length; i++) {%>
+    <li class="user">
+      <span><%= users[i].name %></span>:
+      <span><%= users[i].password %></span>
+    </li>
+    <% } %>
+  </ul>
+
+</section>
