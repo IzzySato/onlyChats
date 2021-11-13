@@ -1,0 +1,20 @@
+<%- include('partials/head')%>
+<section id="loginSection" class="signupLoginSection">
+  <h2 class="sectionTitle">Login</h2>
+  <div class="inputDiv">
+    <label for="username"></label>
+    <input id="username" class="signupLoginInputs" type="email" name="username" placeholder="email">
+  </div>
+  <div class="inputDiv">
+    <label for="password"></label>
+    <input id="password" class="signupLoginInputs" type="password" name="password" placeholder="password">
+  </div>
+  <button id="loginBtn" class="btn signupLoginBtn">Login</button><br>
+  <a class="logSignMoveBtn" href="/signup">New user? register</a>
+  <div id="google" class="btn socialBtn">
+    <i class="fab fa-google icon"></i>
+    <a class="buttonTitle" href="/auth/google" role="button">Sign up with Google</a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

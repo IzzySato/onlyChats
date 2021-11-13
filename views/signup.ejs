@@ -1,0 +1,25 @@
+<%- include('partials/head')%>
+<section id="signupSection" class="signupLoginSection">
+  <div>
+    <h2 class="sectionTitle">Sign up</h2>
+    <div class="inputDiv">
+      <label for="userFirstName"></label>
+      <input id="userFirstName" class="signupLoginInputs" type="text" name="userFirstName" placeholder="first name" required>
+    </div>
+    <div class="inputDiv">
+      <label for="userLastName"></label>
+      <input id="userLastName" class="signupLoginInputs" type="text" name="userLastName" placeholder="last name" required>
+    </div>
+    <div class="inputDiv">
+      <label for="username"></label>
+      <input id="newUsername" class="signupLoginInputs" type="email" name="username" placeholder="email" required>
+    </div>
+    <div class="inputDiv">
+      <label for="password"></label>
+      <input id="newPassword" class="signupLoginInputs" type="password" name="password" placeholder="password" required>
+    </div>
+    <button id="signupBtn" class="btn signupLoginBtn">Sign up</button><br>
+    <a class="logSignMoveBtn" href="/login">Already have an account?</a>
+  </div>
+</section>
+<%- include('partials/footer') %>

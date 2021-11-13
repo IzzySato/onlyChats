@@ -1,8 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+:root {
+  --background-color: #94D1A9;
+  --background-color-two: #526cd4;
+  --font-color-one: #1E1F1E;
+  --font-color-two: #E9E9E9;
+  --main-color: #20D09D;
+  --point-color: #C8F5E8;
+  --sub-color: #1E3179;
+  --success-color: #28B330;
+  --error-color: #C94F45;
+  --btn-background-color-one: #1E685F;
+  --btn-background-color-two: #658687;
+  --btn-hover-color-one: #111b1a;
+  --btn-hover-color-two: #2e3636;
+  --google-color: #DB4437;
+  --google-color-hover: #75271f;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+button.hover {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
 }
 
 a {
-  color: #00B7FF;
+  color: var(--font-color-two);
+  text-decoration: none;
+}
+
+.btn {
+  border-radius: 6px;
+  font-size: 1.4rem;
+  background-color: var(--btn-background-color);
+  color: var(--font-color-two);
+  padding: 1%;
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--sub-color);
+  cursor: pointer;
+}
+
+/* signup/login */
+
+.sectionTitle {
+  margin-bottom: 3%;
+  font-size: 2.4rem;
+}
+
+.signupLoginSection {
+  text-align: center;
+  border-radius: 6px;
+  padding: 3% 0;
+  margin: 5%;
+}
+
+.signupLoginInputs {
+  border: none;
+  width: 40%;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  margin-bottom: 2%;
+  padding: 0.5% 0.6%;
+}
+
+.signupLoginBtn {
+  width: 42%;
+  margin-bottom: 2%;
+}
+
+.logSignMoveBtn {
+  font-size: 1.5rem;
+}
+
+.logSignMoveBtn:hover {
+  color: var(--font-color-one);
+}
+
+/* Signup page */
+
+#signupSection {
+  background-color: var(--background-color);
+}
+
+#signupBtn {
+  background-color: var(--btn-background-color-one);
+}
+
+#signupBtn:hover {
+  background-color: var(--btn-hover-color-one);
+}
+/* login page */
+#loginSection {
+  background-color: var(--background-color-two);
+}
+
+#loginBtn {
+  background-color: var(--btn-background-color-two);
+  margin-bottom: 3%;
+}
+
+#loginBtn:hover {
+  background-color: var(--btn-hover-color-two);
+}
+
+#google {
+  margin: 0 auto;
+  background-color: var(--google-color);
+  width: 40%;
+  margin-top:3%;
+}
+
+#google:hover {
+  background-color: var(--google-color-hover);
 }
