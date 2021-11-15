@@ -12,7 +12,7 @@
 
 * Garsha Iravani
 
-* Minam
+* Misam Ibrahimi (A01204003)
 
 ### Technologies used
 
