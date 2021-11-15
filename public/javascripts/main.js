@@ -1,5 +1,6 @@
 import * as Signup from './signup.js';
 import * as Login from './login.js';
+import * as Util from './util.js';
 
 //handling button clicks
 const processClick = (target) => {
@@ -18,6 +19,11 @@ const processClick = (target) => {
     Login.login(username, password);
   };
 
+  if(target.matches('.fa-caret-down')) {
+    console.log('clicked');
+    const navDiv = document.querySelector('#moreNav');
+    Util.displayToggle(navDiv);
+  }
 };
 
 //handling all functions

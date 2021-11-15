@@ -5,8 +5,8 @@
   --background-color-two: #526cd4;
   --font-color-one: #1E1F1E;
   --font-color-two: #E9E9E9;
-  --main-color: #20D09D;
-  --point-color: #C8F5E8;
+  --main-color: #1ab98c;
+  --point-color: #b7d339;
   --sub-color: #1E3179;
   --success-color: #28B330;
   --error-color: #C94F45;
@@ -28,7 +28,9 @@ h3,
 h4,
 p,
 nav,
-body {
+body,
+ul,
+li {
   margin: 0;
 }
 
@@ -62,28 +64,79 @@ li {
   list-style: none;
 }
 
+.subTitle {
+  color: var(--sub-color);
+  font-size: 2rem;
+}
+
 /* navigation page */
+
+ul.nav {
+  padding: 0;
+}
 
 #headerDiv {
   background-color: var(--sub-color);
   width: 100%;
-  height: 20%;
-  padding: 2%;
-  margin-bottom: 2%;
+  padding: 3% 0;
 }
 
 #hamburgerMenuNav {
   display: none;
 }
 
-.navLis {
-  color: var(--font-color-two);
-  font-size: 1rem;
+.nav {
+  text-align: center;
+  position: relative;
 }
 
-.navLis:hover {
+.nav li{
+  display: inline-block;
+  margin-right: 7%;
+}
+
+.navLis {
+  color: var(--font-color-two);
+  margin-bottom: 15px;
   font-size: 1.2rem;
+}
+
+.fas {
+  color: var(--font-color-two);
+  font-size: 1.7rem;
+}
+
+.navLis:hover, .fas:hover {
+  color: var(--point-color);
   cursor: pointer;
+}
+
+.fa-caret-down {
+  position: absolute;
+  font-size: 3rem;
+  right: 5%;
+  top: 3%;
+}
+#moreNavDiv {
+  position: relative;
+}
+
+#moreNav {
+  display: none;
+}
+
+#moreNav.show {
+  display: block;
+  background-color: var(--background-color-two);
+  position: absolute;
+  padding: 8%;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.fa-sign-out-alt {
+  margin-left: 20px;
 }
 
 /* signup/login */
@@ -159,3 +212,58 @@ li {
 #google:hover {
   background-color: var(--google-color-hover);
 }
+
+/* user page */
+
+#userNameDiv {
+  background-color: var(--background-color);
+  text-align: center;
+  color: var(--font-color-two);
+  padding: 7% 0;
+  font-size: 1.6rem;
+}
+
+#friendsDiv {
+  margin: 10% 5%;
+}
+
+
+/* footer */
+
+footer {
+  background-color: var(--sub-color);
+  color: var(--font-color-two);
+  padding: 5%;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+/* index */
+
+#mainDiv {
+  background-color: var(--background-color);
+  padding: 3% 2%;
+  color: var(--font-color-two);
+  text-align: center;
+}
+
+.divbox {
+  margin: 0 auto;
+  width: 70%;
+  height: 30%;
+  border-radius: 7px;
+  background-color: var(--point-color);
+  padding: 2%;
+}
+
+#memebersDiv {
+  margin: 3% 0;
+}
+
+.name {
+  margin-top: 2%;
+  font-size: 1.2rem;
+  color: var(--sub-color);
+}
+
