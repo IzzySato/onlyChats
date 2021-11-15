@@ -1,29 +1,27 @@
 {
-  "name": "onlychats",
-  "version": "0.0.0",
-  "private": true,
+  "name": "OnlyChats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "server":"nodemon app"
   },
-  "dependencies": {
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "mongodb": "^4.1.4"
-  },
-  "description": "",
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/IzzySato/onlyChats.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/IzzySato/onlyChats/issues"
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.8.12",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
-  "homepage": "https://github.com/IzzySato/onlyChats#readme",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.2"
   }
 }

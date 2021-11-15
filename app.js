@@ -1,65 +1,57 @@
-const express = require('express')
-const MongoClient = require('mongodb').MongoClient
-const app = express()
-const { DB_URL } = require("./credentials");
+const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
+const router = require('./routes/index');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
+const app = express();
 
-// ========================
-// Link to Database
-// ========================
+// Passport config
+require('./config/passport')(passport);
+
+//DB Config
+const db = require('./config/key').MongoURI;
+
+//Connect to Mongo
+mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true})
+    .then(()=> console.log(`Mongodb Connected`))
+    .catch((err)=> console.log(err));
+
+//View Engine
+app.use(expressLayouts);
+app.set('view engine','ejs');
+
+//Body Parser
+app.use(express.urlencoded({extended:false}));
+
+//Express Session
+app.use(session({
+    secret:'secret',
+    resave:false,
+    saveUninitialized:true
+}))
+
+//Passport middleware
+app.use(passport.initialize()); // invoke serializeuser method
+app.use(passport.session()); // invoke deserializuser method
 
 
-// Replace DB_URL with your actual connection string in credentials.js
-const connectionString = DB_URL
+//Connect Flash
+app.use(flash())
 
-MongoClient.connect(connectionString, { useUnifiedTopology: true })
-  .then(client => {
-    console.log('Connected to Database')
-    const db = client.db('usr-cred')
-    const userCollection = db.collection('users')
+//Globals vars 
+app.use((req,res,next)=>{
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+})
 
-    // ========================
-    // Middlewares
-    // ========================
-    app.set('view engine', 'ejs')
-    app.use(express.urlencoded({ extended: true }))
-    app.use(express.json())
-    app.use(express.static('public'))
+app.use('/',router);
+app.use('/users',require('./routes/users'));
 
-    // ========================
-    // Routes
-    // ========================
-
-
-    app.get('/', (req, res) => {
-       
-            res.render('index.ejs')
-       
-      })
-
-    app.get('/userinfo', (req, res) => {
-      db.collection('users').find().toArray()
-        .then(users => {
-          res.render('userinfo.ejs', { users: users})
-        })
-        .catch(error => console.error(error))
-    })
-
-    app.post('/users', (req, res) => {
-       userCollection.insertOne(req.body)
-        .then(result => {
-            console.log('New user account created in the database') ; 
-          res.redirect('/userinfo')
-        })
-        .catch(error => console.error(error))
-    })
-
-   
-    // ========================
-    // Listen
-    // ========================
-    const port = 3001
-    app.listen(port, function () {
-      console.log(`listening on ${port}`)
-    })
-  })
-  .catch(console.error)
+const PORT = process.env.PORT || 3001
+app.listen(PORT,()=>{
+    console.log(`server started on port ${PORT}`);
+})
