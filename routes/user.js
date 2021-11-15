@@ -3,7 +3,7 @@ const router = express.Router();
 
 //GET load register page
 router.get('/', (req, res) => {
-  res.render('user', { username: 'MY_NAME'});
+  res.render('user', { username: 'username'});
 });
 
 module.exports = router;

@@ -37,7 +37,7 @@ mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true})
 
 //View Engine
 //app.use(expressLayouts);
-//app.set('view engine','ejs');
+app.set('view engine','ejs');
 
 //Body Parser
 app.use(express.urlencoded({extended:false}));
@@ -65,14 +65,6 @@ app.use((req,res,next)=>{
     next();
 })
 
-app.use('/',router);
-app.use('/users',require('./routes/users'));
-
-const PORT = process.env.PORT || 3001
-app.listen(PORT,()=>{
-    console.log(`server started on port ${PORT}`);
-})
-
 //Gaurav's code end--------------------------------------------------------------
 
 
@@ -86,12 +78,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', indexRouter);
-// app.use('/signup', signupRouter);
-// app.use('/login', loginRouter);
-// app.use('/logout', logoutRouter);
-// app.use('/user', userRouter);
-// app.use('/chat', chatRouter);
+app.use('/', indexRouter);
+app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
+app.use('/user', userRouter);
+app.use('/chat', chatRouter);
 
 const users = {};
 
