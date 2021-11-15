@@ -8,7 +8,23 @@
   </nav>
     <nav id="mainNav">
       <ul class="nav">
-        <li id="logoutLi" href="/logout" class="navLis">LOGOUT</li>
+        <li><a href="/"><i data-name="home" data-class="homeDiv" class="mIcon fas fa-home"></i></a><div class="msg homeDiv"></div></li>
+        <li><a href=""><i data-name="friend" data-class="friendDiv" class="mIcon fas fa-user-plus"></i></a><div class="msg friendDiv"></div></li>
+        <li><a href="/chat"><i data-name="chat" data-class="chatDiv" class="mIcon fas fa-comments"></i></a><div class="msg chatDiv"></div></li>
+        <li><a href=""><i data-name="group" data-class="groupDiv" class="mIcon fas fa-user-friends"></i></a><div class="msg groupDiv"></div></li>
+        <li><a href="/user"><i data-name="user" data-class="userDiv" class="mIcon fas fa-user"></i></a><div class="msg userDiv"></div></li>
       </ul>
+      <div id="moreFunction">
+        <i data-name="menu" data-class="menuDiv" class="fas fa-caret-down"><div class="msg menuDiv"></div></i>
+      </div>
     </nav>
+</div>
+<div id="moreNavDiv">
+  <ul id="moreNav">
+    <li class="navLis">LINK 1</li>
+    <li class="navLis">LINK 2</li>
+    <li class="navLis">LINK 3</li>
+    <li class="navLis">LINK 4</li>
+    <li id="logoutLi" href="/logout" class="navLis">LOGOUT<i class="fas fa-sign-out-alt"></i></li>
+  </ul>
 </div>

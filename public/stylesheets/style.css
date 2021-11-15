@@ -3,10 +3,11 @@
 :root {
   --background-color: #94D1A9;
   --background-color-two: #526cd4;
-  --font-color-one: #1E1F1E;
+  --background-color-three: #fafafa;
+  --font-color-one: #252a6d;
   --font-color-two: #E9E9E9;
-  --main-color: #20D09D;
-  --point-color: #C8F5E8;
+  --main-color: #1ab98c;
+  --point-color: #b7d339;
   --sub-color: #1E3179;
   --success-color: #28B330;
   --error-color: #C94F45;
@@ -28,7 +29,9 @@ h3,
 h4,
 p,
 nav,
-body {
+body,
+ul,
+li {
   margin: 0;
 }
 
@@ -62,28 +65,87 @@ li {
   list-style: none;
 }
 
+.subTitle {
+  color: var(--font-color-one);
+  font-size: 2rem;
+}
+
 /* navigation page */
+
+ul.nav {
+  padding: 0;
+}
 
 #headerDiv {
   background-color: var(--sub-color);
   width: 100%;
-  height: 20%;
-  padding: 2%;
-  margin-bottom: 2%;
+  padding: 3% 0;
 }
 
 #hamburgerMenuNav {
   display: none;
 }
 
-.navLis {
-  color: var(--font-color-two);
-  font-size: 1rem;
+.nav {
+  text-align: center;
+  position: relative;
 }
 
-.navLis:hover {
+.nav li{
+  display: inline-block;
+  margin-right: 7%;
+  position: relative;
+}
+
+.navLis {
+  color: var(--font-color-two);
+  margin-bottom: 15px;
   font-size: 1.2rem;
+}
+
+.fas {
+  color: var(--font-color-two);
+  font-size: 1.7rem;
+}
+
+.navLis:hover, .fas:hover {
+  color: var(--point-color);
   cursor: pointer;
+}
+
+.fa-caret-down {
+  position: absolute;
+  font-size: 3rem;
+  right: 5%;
+  top: 1%;
+}
+#moreNavDiv {
+  position: relative;
+}
+
+#moreNav {
+  display: none;
+}
+
+#moreNav.show {
+  display: block;
+  background-color: var(--background-color-two);
+  position: absolute;
+  padding: 8%;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.fa-sign-out-alt {
+  margin-left: 20px;
+}
+
+.msg {
+  color: var(--font-color-two);
+  position: absolute;
+  font-size: 15px;
+  top: 10;
 }
 
 /* signup/login */
@@ -159,3 +221,88 @@ li {
 #google:hover {
   background-color: var(--google-color-hover);
 }
+
+/* user page */
+
+#userNameDiv {
+  background-color: var(--background-color);
+  text-align: center;
+  color: var(--font-color-two);
+  padding: 7% 0;
+  font-size: 1.6rem;
+}
+
+#friendsDiv {
+  margin: 10% 5%;
+  background-color: var(--background-color);
+  padding: 3%;
+  color: var(--font-color-two);
+  border-radius: 7px;
+}
+
+#friendUl {
+  margin-top: 5%;
+}
+
+.myFriend {
+  background-color: var(--sub-color);
+  display: inline-block;
+  margin-right: 3%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.myFriend p {
+  text-align: center;
+  margin-top: 40%;
+  font-size: 1.6rem;
+  color: var(--font-color-two);
+}
+
+.myFriend p:hover {
+  cursor: pointer;
+  color: var(--point-color);
+}
+
+/* footer */
+
+footer {
+  background-color: var(--sub-color);
+  color: var(--font-color-two);
+  padding: 5%;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+/* index */
+
+#mainDiv {
+  background-color: var(--background-color);
+  padding: 3% 2%;
+  color: var(--font-color-one);
+  text-align: center;
+}
+
+.divbox {
+  margin: 0 auto;
+  width: 70%;
+  height: 30%;
+  border-radius: 7px;
+  background-color: var(--background-color-three);
+  padding: 2%;
+}
+
+#memebersDiv {
+  border-top: 1px solid var(--font-color-one);
+  margin: 3%;
+  padding-top: 3%;
+}
+
+.name {
+  margin-top: 2%;
+  font-size: 1.2rem;
+  color: var(--font-color-one);
+}
+
