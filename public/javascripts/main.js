@@ -28,6 +28,17 @@ const processClick = (target) => {
 
 //handling all functions
 window.addEventListener('DOMContentLoaded', () => {
+  //navigation icons message
+  const navIcons = document.querySelectorAll('.mIcon');
+  navIcons.forEach(i => {
+    i.addEventListener('mouseover', (e) => {
+      const name = e.target.dataset.name;
+      const classDiv = document.querySelector('.' + e.target.dataset.class);
+      const html = `<p>${name}</p>`;
+      classDiv.innerHTML = html;
+      setTimeout(() => {  classDiv.innerHTML = ""; }, 500);
+    });
+  });
   document.addEventListener('click', ({
     target
   }) => processClick(target));

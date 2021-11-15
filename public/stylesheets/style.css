@@ -3,7 +3,8 @@
 :root {
   --background-color: #94D1A9;
   --background-color-two: #526cd4;
-  --font-color-one: #1E1F1E;
+  --background-color-three: #fafafa;
+  --font-color-one: #252a6d;
   --font-color-two: #E9E9E9;
   --main-color: #1ab98c;
   --point-color: #b7d339;
@@ -65,7 +66,7 @@ li {
 }
 
 .subTitle {
-  color: var(--sub-color);
+  color: var(--font-color-one);
   font-size: 2rem;
 }
 
@@ -93,6 +94,7 @@ ul.nav {
 .nav li{
   display: inline-block;
   margin-right: 7%;
+  position: relative;
 }
 
 .navLis {
@@ -115,7 +117,7 @@ ul.nav {
   position: absolute;
   font-size: 3rem;
   right: 5%;
-  top: 3%;
+  top: 1%;
 }
 #moreNavDiv {
   position: relative;
@@ -137,6 +139,13 @@ ul.nav {
 
 .fa-sign-out-alt {
   margin-left: 20px;
+}
+
+.msg {
+  color: var(--font-color-two);
+  position: absolute;
+  font-size: 15px;
+  top: 10;
 }
 
 /* signup/login */
@@ -225,8 +234,36 @@ ul.nav {
 
 #friendsDiv {
   margin: 10% 5%;
+  background-color: var(--background-color);
+  padding: 3%;
+  color: var(--font-color-two);
+  border-radius: 7px;
 }
 
+#friendUl {
+  margin-top: 5%;
+}
+
+.myFriend {
+  background-color: var(--sub-color);
+  display: inline-block;
+  margin-right: 3%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.myFriend p {
+  text-align: center;
+  margin-top: 40%;
+  font-size: 1.6rem;
+  color: var(--font-color-two);
+}
+
+.myFriend p:hover {
+  cursor: pointer;
+  color: var(--point-color);
+}
 
 /* footer */
 
@@ -244,7 +281,7 @@ footer {
 #mainDiv {
   background-color: var(--background-color);
   padding: 3% 2%;
-  color: var(--font-color-two);
+  color: var(--font-color-one);
   text-align: center;
 }
 
@@ -253,17 +290,19 @@ footer {
   width: 70%;
   height: 30%;
   border-radius: 7px;
-  background-color: var(--point-color);
+  background-color: var(--background-color-three);
   padding: 2%;
 }
 
 #memebersDiv {
-  margin: 3% 0;
+  border-top: 1px solid var(--font-color-one);
+  margin: 3%;
+  padding-top: 3%;
 }
 
 .name {
   margin-top: 2%;
   font-size: 1.2rem;
-  color: var(--sub-color);
+  color: var(--font-color-one);
 }
 
