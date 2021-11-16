@@ -16,7 +16,7 @@ const chatRouter = require('./routes/chat');
 
 //Gaurav's code ------------------------------------------------
 //const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
+//const expressLayouts = require('express-ejs-layouts');
 const router = require('./routes/index');
 const mongoose = require('mongoose');
 const session = require('express-session');

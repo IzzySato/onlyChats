@@ -1,10 +1,8 @@
 //signup a new user
-const signup = (userFirstName, userLastName, username, password) => {
-  console.log('signup');
+const signup = (name, email, password) => {
   const newUser = {
-    userFirstName,
-    userLastName,
-    username,
+    name,
+    email,
     password
   };
 

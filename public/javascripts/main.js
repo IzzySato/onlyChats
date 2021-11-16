@@ -5,11 +5,10 @@ import * as Util from './util.js';
 //handling button clicks
 const processClick = (target) => {
   if(target.matches('#signupBtn')) {
-    const userFirstName = document.querySelector('#userFirstName').value;
-    const userLastName = document.querySelector('#userLastName').value;
     const username = document.querySelector('#newUsername').value;
+    const email = document.querySelector('#newEmail').value;
     const password = document.querySelector('#newPassword').value;
-    Signup.signup(userFirstName, userLastName, username, password);
+    Signup.signup(username, email, password);
   }
 
   if (target.matches('#loginBtn')) {
