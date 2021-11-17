@@ -4,7 +4,7 @@ const login = (username, password) => {
     password
   };
 
-  fetch('/', {
+  fetch('/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {

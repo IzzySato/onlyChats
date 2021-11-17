@@ -1,33 +1,16 @@
-// const express = require('express');
-// const router = express.Router();
-
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'OnlyChats'});
-// });
-
-// module.exports = router;
-
-
-//Gaurav's code-------------------------------------------
-
 const express = require('express');
 const router = express.Router();
 
-
-//Welcome Page
-router.get('/',(req,res)=>{
-    res.render('index', { title: 'OnlyChats'});
-})
-
-//Login Page
-router.get('/login',(req,res)=>{
-    res.send('Welcome to Login Page');
-})
-
-//Register Page
-router.get('/register',(req,res)=>{
-    res.send(`Welcome to register Page`)
-})
+/* GET home page. */
+router.get('/', (req, res, next) => {
+    const { name } = req;
+    console.log('--------' + name);
+    //console.log(req);
+    if (req.isAuthenticated()) {
+        res.render('index', { title: 'OnlyChats'});
+    } else {
+        res.redirect('login');
+    }
+});
 
 module.exports = router;

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const passport = require('passport'); 
 
 //GET load register page
 router.get('/', (req, res) => {
@@ -14,9 +15,7 @@ router.post('/', (req, res) => {
     email,
     password
   } = req.body;
-  console.log('name ' + name);
-  console.log('email ' + email);
-  console.log('pass ' + password);
+  console.log(`name ${name} email ${email} pass ${password}`);
   let errors = [];
 
   try {
@@ -24,13 +23,8 @@ router.post('/', (req, res) => {
     if (!name || !email || !password) {
       errors.push({
         msg: 'Please Fill all the fields'
-      })
+      });
     }
-
-    //Check password match
-    // if(password2 !== password){
-    //     errors.push({msg:'Password do not match'});
-    // }
 
     //Check pass length
     if (password.length < 6) {
@@ -60,8 +54,15 @@ router.post('/', (req, res) => {
           newUser.password = hash;
           newUser.save()
             .then(user => {
-              req.flash('success_msg', 'You are now register and can log in')
-              res.json({url: '/'});
+              try {
+                passport.authenticate('local')(req, res, () => {
+                  res.json({url: '/index'});
+                });
+              }catch(err){
+                console.log(err);
+              }
+              // req.flash('success_msg', 'You are now register and can log in')
+              // res.json({url: '/index'});
             })
             .catch(err => console.log(err));
         });

@@ -44,9 +44,9 @@ app.use(express.urlencoded({extended:false}));
 
 //Express Session
 app.use(session({
-    secret:'secret',
-    resave:false,
-    saveUninitialized:true
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
 }))
 
 //Passport middleware
@@ -78,7 +78,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/index', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);

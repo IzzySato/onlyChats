@@ -1,15 +1,21 @@
 <%- include('partials/head')%>
 <section id="loginSection" class="signupLoginSection">
   <h2 class="sectionTitle">Login</h2>
-  <div class="inputDiv">
-    <label for="username"></label>
-    <input id="username" class="signupLoginInputs" type="email" name="username" placeholder="email">
-  </div>
-  <div class="inputDiv">
-    <label for="password"></label>
-    <input id="password" class="signupLoginInputs" type="password" name="password" placeholder="password">
-  </div>
-  <button id="loginBtn" class="btn signupLoginBtn">Login</button><br>
+  <form action="/login" method="POST">
+      <div class="inputDiv">
+        <label for="username"></label>
+        <input id="username" class="signupLoginInputs" type="text" name="username" placeholder="username">
+      </div>
+      <div class="inputDiv">
+        <label for="email"></label>
+        <input id="email" class="signupLoginInputs" type="email" name="email" placeholder="email">
+      </div>
+      <div class="inputDiv">
+        <label for="password"></label>
+        <input id="password" class="signupLoginInputs" type="password" name="password" placeholder="password">
+      </div>
+      <button type="submit" id="loginBtn" class="btn signupLoginBtn">Login</button><br>
+  </form>
   <a class="logSignMoveBtn" href="/signup">New user? register</a>
   <div id="google" class="btn socialBtn">
     <i class="fab fa-google icon"></i>

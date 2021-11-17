@@ -1,19 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-const checkAuthenicated = (req,res,next) => {
-  if(req.isAuthenticated()){
-      res.set('Cache-Control','no-cache,private,no-store,must-relative,post-check=0,pre-check=0');
-      return next();
-  }
-  else{
-      res.redirect('/users/login');
-  }
-}
-
 //GET load register page
-router.get('/', checkAuthenicated, (req, res) => {
-  res.render('chat');
+router.get('/', (req, res) => {
+  //const { username } = req;
+  res.render('chat', { username: 'Izzy test' });
+
+  // if (req.isAuthenticated()) {
+  //   const { username } = req.user;
+  //   res.render('chat');
+  // } else {
+  //   res.redirect('login', { username });
+  // }
 });
 
 module.exports = router;

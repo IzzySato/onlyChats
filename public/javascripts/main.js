@@ -11,12 +11,12 @@ const processClick = (target) => {
     Signup.signup(username, email, password);
   }
 
-  if (target.matches('#loginBtn')) {
-    console.log('login clicked');
-    const username = document.querySelector('#username').value;
-    const password = document.querySelector('#password').value;
-    Login.login(username, password);
-  };
+  // if (target.matches('#loginBtn')) {
+  //   console.log('login clicked ' + username + ' ' + password);
+  //   const username = document.querySelector('#username').value;
+  //   const password = document.querySelector('#password').value;
+  //   Login.login(username, password);
+  // };
 
   if(target.matches('.fa-caret-down')) {
     console.log('clicked');

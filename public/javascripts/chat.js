@@ -1,18 +1,23 @@
 //client side socket coding
 const socket = io();
 
-let username;
+//let username;
 const chats = document.querySelector('.chats');
 const users_list = document.querySelector('.users-list');
 const users_count = document.querySelector('.users-count');
 const msg_send = document.querySelector('#user-send');
 const user_msg = document.querySelector('#user-msg');
+const mainDiv = document.querySelector('#chatMain');
+const username = mainDiv.dataset.username;
+
+
 //So this logic is basically saying that keep asking for the username
 //I think here we will handle the user sign in and stuff
 //uggh
-do {
-    username = prompt("Enter your username: ") 
-} while(!username);
+// do {
+//     username = prompt("Enter your username: ") 
+// } while(!username);
+
 socket.emit("new-user-joined", username);
 
 //Getting the user joined stuff to work
