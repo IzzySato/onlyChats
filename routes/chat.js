@@ -4,11 +4,15 @@ const router = express.Router();
 //GET load register page
 router.get('/', (req, res) => {
   //const { username } = req;
-  res.render('chat', { username: 'Izzy test' });
+  //res.render('chat', { username: 'Izzy test' });
+  const { name } = req;c
+  console.log(req);
+  res.render('chat', { username: name});
 
   // if (req.isAuthenticated()) {
-  //   const { username } = req.user;
-  //   res.render('chat');
+  //   const { name } = req;
+  //   console.log(req);
+  //   res.render('chat', { username: name});
   // } else {
   //   res.redirect('login', { username });
   // }
