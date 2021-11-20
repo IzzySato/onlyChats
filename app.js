@@ -13,16 +13,13 @@ const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const userRouter = require('./routes/user');
 const chatRouter = require('./routes/chat');
+const addFriendRouter = require('./routes/addFriend');
 
-//Gaurav's code ------------------------------------------------
-//const express = require('express');
-//const expressLayouts = require('express-ejs-layouts');
 const router = require('./routes/index');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
-//const app = express();
 
 // Passport config
 require('./config/passport')(passport);
@@ -65,9 +62,6 @@ app.use((req,res,next)=>{
     next();
 })
 
-//Gaurav's code end--------------------------------------------------------------
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -84,6 +78,7 @@ app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/user', userRouter);
 app.use('/chat', chatRouter);
+app.use('/addFriend', addFriendRouter);
 
 const users = {};
 

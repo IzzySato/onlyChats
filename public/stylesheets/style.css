@@ -306,3 +306,9 @@ footer {
   color: var(--font-color-one);
 }
 
+/* add Friend */
+
+#addFriendDiv {
+  background-color: var(--background-color);
+}
+

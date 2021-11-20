@@ -1,6 +1,7 @@
 import * as Signup from './signup.js';
 import * as Login from './login.js';
 import * as Util from './util.js';
+import * as AddFriend from './addFriend.js';
 
 //handling button clicks
 const processClick = (target) => {
@@ -11,12 +12,13 @@ const processClick = (target) => {
     Signup.signup(username, email, password);
   }
 
-  // if (target.matches('#loginBtn')) {
-  //   console.log('login clicked ' + username + ' ' + password);
-  //   const username = document.querySelector('#username').value;
-  //   const password = document.querySelector('#password').value;
-  //   Login.login(username, password);
-  // };
+  // add Friends
+  if(target.matches('#addFriendbtn')) {
+    const friendName = document.querySelector('#friendName').value;
+    const friendEmail = document.querySelector('#friendEmail').value;
+    console.log(`friend::: ${friendName}   ${friendEmail}`);
+    AddFriend.addFriend(friendName, friendEmail);
+  }
 
   if(target.matches('.fa-caret-down')) {
     console.log('clicked');
