@@ -1,0 +1,26 @@
+<%- include('partials/head')%>
+<%- include('partials/nav')%>
+    <main data-username="<%= name %>" id="chatMain" >
+        <div class="container">
+            <!--TODO:Change the id of users to friend and change styling-->
+            <div class="users-window">
+                <div class="users-head">
+                    <h3><%- name %></h3>
+                </div>
+                <div class="users-list">
+                </div>
+            </div>
+            <div class="chat-window">
+                <div class="chats">
+                </div>
+                <div class="user-input">
+                    <input id="user-msg" type="text" placeholder="Type your text">
+                    <button id= "user-send" type="button">SEND</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- So this is basically the code for client side things -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script type="module" src="/javascripts/privChat.js"></script>
+    <%- include('partials/footer') %>

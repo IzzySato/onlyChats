@@ -13,6 +13,7 @@ const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const userRouter = require('./routes/user');
 const chatRouter = require('./routes/chat');
+const privateRouter = require('./routes/privChat');
 
 //Gaurav's code ------------------------------------------------
 //const express = require('express');
@@ -31,22 +32,22 @@ require('./config/passport')(passport);
 const db = require('./config/key').MongoURI;
 
 //Connect to Mongo
-mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true})
-    .then(()=> console.log(`Mongodb Connected`))
-    .catch((err)=> console.log(err));
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log(`Mongodb Connected`))
+  .catch((err) => console.log(err));
 
 //View Engine
 //app.use(expressLayouts);
-app.set('view engine','ejs');
+app.set('view engine', 'ejs');
 
 //Body Parser
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
 
 //Express Session
 app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
 }))
 
 //Passport middleware
@@ -58,11 +59,11 @@ app.use(passport.session()); // invoke deserializuser method
 app.use(flash())
 
 //Globals vars 
-app.use((req,res,next)=>{
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error');
-    next();
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
 })
 
 //Gaurav's code end--------------------------------------------------------------
@@ -84,8 +85,14 @@ app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/user', userRouter);
 app.use('/chat', chatRouter);
+//TODO: Create a custom url with the name of the friend
+app.use('/privChat', privateRouter);
 
+
+/*******************************CHAT LOGIC**************************************************** */
 const users = {};
+
+const privateUsers = {};
 
 const initChat = (_server) => {
   // socket.io setup
@@ -95,44 +102,86 @@ const initChat = (_server) => {
   //we have to provide an event here, whenever someone comes to connect to the sever
   //All the users are given a unique socket id - they basically become a socket in the eyes of the server
   //This event will be called whenever a user joing our stuff
-  io.on("connection",(socket) => {
-      console.log(socket.id);
-      //basically addding all the users to the object
-      //the event name has to be the same as what we emit in the client
-      socket.on("new-user-joined", (username) => {
-        users[socket.id] = username;
+  io.on("connection", (socket) => {
+    console.log("printing the socket id");
+    console.log(socket.id);
 
-        //we are broadcasting this to all the sockets 
-        //we are emmiting the username to the client now
-        socket.broadcast.emit('user-connected', username);
+    //basically addding all the users to the object
+    //the event name has to be the same as what we emit in the client
+    socket.on("new-user-joined", (username) => {
+      users[socket.id] = username;
+      //we are broadcasting this to all the sockets 
+      //we are emmiting the username to the client now
+      socket.broadcast.emit('user-connected', username);
+      //WE want to TARGET ALL THE SOCKETS AND NOT JUST THE ONE THAT IS BEING CONNECTED
+      io.emit("user-list", users);
+    });
 
-          //WE want to TARGET ALL THE SOCKETS AND NOT JUST THE ONE THAT IS BEING CONNECTED
-          io.emit("user-list", users);
+
+    socket.on("disconnect", () => {
+      socket.broadcast.emit("user-disconnected", user = users[socket.id]);
+      if(Object.keys(users).length != 0) {
+        delete users[socket.id];
+      }
+      if(Object.keys(privateUsers).length != 0) {
+        delete privateUsers[socket.id];
+        console.log(privateUsers);
+      }
+      io.emit('user-list', users);
+    });
+
+
+    socket.on("message", (data) => {
+      socket.broadcast.emit("message", { user: data.user, msg: data.msg });
+    });
+
+
+    /**PRIVATE CHAT LOGIC */
+    if(Object.keys(privateUsers).length < 2) {
+      socket.on("private-connection", (username) => {
+        privateUsers[socket.id] = username;
+  
+        console.log(privateUsers);
       });
+    } else {
+      //fix this with friend logic
+      //Check if the username is the friend of other username being added along with the length
+      console.log("No more than two users in private chat");   
+    }
 
 
-      socket.on("disconnect", () => {
-          socket.broadcast.emit("user-disconnected", user=users[socket.id]);
-          delete users[socket.id];
-          io.emit('user-list', users);
-      });
+    socket.on('priv-message-outgoing', (data) => {
+      console.log("This data coming from this socket and this username" + data.user + " " + data.id);
+      console.log(data);
+      let receiverId;
+      for(let i = 0; i < 2; i++) {
+        if(Object.keys(privateUsers)[i] != data.id) {
+          receiverId = Object.keys(privateUsers)[i];
+        }
+      }
+      io.to(receiverId).emit("priv-message-incoming", data);
+    });
 
 
-      socket.on("message", (data) => {
-          socket.broadcast.emit("message", {user: data.user, msg:data.msg});
-      });
+
+
+
+
+
+
   });
 };
 
 app.initChat = initChat;
 
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
