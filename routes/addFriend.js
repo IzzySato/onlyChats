@@ -40,4 +40,15 @@ router.post('/', async (req, res) => {
   };
 });
 
+router.get('/data', async (req, res) => {
+  if(req.isAuthenticated()){
+    const data = await Friend.find();
+    res.json(data);
+    //console.log(JSON.stringify(data));
+  }else{
+    console.log('not authenticated');
+    res.redirect('/index');
+  }
+});
+
 module.exports = router;

@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
   if (req.isAuthenticated()) {
     const { user = [] } = req;
     const { name = '', email } = (user[0] || {});
-    res.render('user', { name, email });
+    res.render('privChat', { name, email });
   } else {
     res.redirect('login');
   }

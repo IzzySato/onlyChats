@@ -14,7 +14,7 @@ const logoutRouter = require('./routes/logout');
 const userRouter = require('./routes/user');
 const chatRouter = require('./routes/chat');
 const addFriendRouter = require('./routes/addFriend');
-
+const privateRouter = require('./routes/privChat');
 const router = require('./routes/index');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -79,8 +79,10 @@ app.use('/logout', logoutRouter);
 app.use('/user', userRouter);
 app.use('/chat', chatRouter);
 app.use('/addFriend', addFriendRouter);
+app.use('/privChat', privateRouter);
 
 const users = {};
+const privateUsers = {};
 
 const initChat = (_server) => {
   // socket.io setup
@@ -105,17 +107,51 @@ const initChat = (_server) => {
           io.emit("user-list", users);
       });
 
-
       socket.on("disconnect", () => {
-          socket.broadcast.emit("user-disconnected", user=users[socket.id]);
+        socket.broadcast.emit("user-disconnected", user = users[socket.id]);
+        if(Object.keys(users).length != 0) {
           delete users[socket.id];
-          io.emit('user-list', users);
+        }
+        if(Object.keys(privateUsers).length != 0) {
+          delete privateUsers[socket.id];
+          console.log(privateUsers);
+        }
+        io.emit('user-list', users);
       });
 
 
       socket.on("message", (data) => {
           socket.broadcast.emit("message", {user: data.user, msg:data.msg});
       });
+
+
+
+    /**PRIVATE CHAT LOGIC */
+    if(Object.keys(privateUsers).length < 2) {
+      socket.on("private-connection", (friendData) => {
+        console.log("printing");
+        console.log(friendData);
+        privateUsers[socket.id] = friendData.friends.email;
+        console.log(privateUsers);
+      });
+    } else {
+      //fix this with friend logic
+      //Check if the username is the friend of other username being added along with the length
+      console.log("No more than two users in private chat");   
+    }
+
+
+    socket.on('priv-message-outgoing', (data) => {
+      console.log("This data coming from this socket and this username" + data.user + " " + data.id);
+      console.log(data);
+      let receiverId;
+      for(let i = 0; i < 2; i++) {
+        if(Object.keys(privateUsers)[i] != data.id) {
+          receiverId = Object.keys(privateUsers)[i];
+        }
+      }
+      io.to(receiverId).emit("priv-message-incoming", data);
+    });
   });
 };
 

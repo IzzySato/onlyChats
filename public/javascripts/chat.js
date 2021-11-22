@@ -10,14 +10,6 @@ const user_msg = document.querySelector('#user-msg');
 const mainDiv = document.querySelector('#chatMain');
 const username = mainDiv.dataset.username;
 
-
-//So this logic is basically saying that keep asking for the username
-//I think here we will handle the user sign in and stuff
-//uggh
-// do {
-//     username = prompt("Enter your username: ") 
-// } while(!username);
-
 socket.emit("new-user-joined", username);
 
 //Getting the user joined stuff to work
