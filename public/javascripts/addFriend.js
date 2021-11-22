@@ -16,6 +16,7 @@ const addFriend = ( friendName, friendEmail ) => {
     .then(({url}) => location.href = url);
 };
 
+
 export {
   addFriend
 }

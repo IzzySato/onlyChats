@@ -8,7 +8,23 @@ const users_count = document.querySelector('.users-count');
 const msg_send = document.querySelector('#user-send');
 const user_msg = document.querySelector('#user-msg');
 const mainDiv = document.querySelector('#chatMain');
+const myEmail = mainDiv.dataset.email;
 const username = mainDiv.dataset.username;
+
+console.log('my email: ' + myEmail);
+const friendData = {};
+
+const getFriendsData = () => new Promise((res, rej) => {
+  fetch('/addFriend/data')
+  .then(res => res.json())
+  .then(json => {
+    friendData.friends = json.filter(f => f.email === myEmail);
+    console.log(JSON.stringify(friendData.friends));
+    res();
+  });
+});
+
+getFriendsData();
 
 
 //So this logic is basically saying that keep asking for the username

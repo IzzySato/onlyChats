@@ -5,8 +5,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
   if (req.isAuthenticated()) {
     const { user = [] } = req;
-    const { name = '' } = (user[0] || {});
-    res.render('chat', { name });
+    const { name = '', email } = (user[0] || {});
+    res.render('chat', { name, email });
   } else {
     res.redirect('login');
   }
