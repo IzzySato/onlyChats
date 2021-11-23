@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const crypto = require('crypto');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -82,7 +83,7 @@ app.use('/addFriend', addFriendRouter);
 app.use('/privChat', privateRouter);
 
 const users = {};
-const privateUsers = {};
+const privateUsers = [];
 
 const initChat = (_server) => {
   // socket.io setup
@@ -125,16 +126,42 @@ const initChat = (_server) => {
       });
 
 
-
     /**PRIVATE CHAT LOGIC */
-     if(Object.keys(privateUsers).length < 2) {
+     if (privateUsers.length < 2) {
        socket.on("private-connection", (username) => {
-         privateUsers[socket.id] = username;
+        let user = {
+          name: username,
+          id: socket.id,
+          key: null
+        }
+        privateUsers.push(user);
+
+        /**Generate key logic here for each user that comes */
+        if (privateUsers.length === 2) {
+
+          const user1Key = crypto.createECDH('secp256k1');
+          const user2Key = crypto.createECDH('secp256k1');
+
+          user1Key.generateKeys();
+          user2Key.generateKeys();
+
+          const publicUser1Key = user1Key.getPublicKey().toString('base64');
+          const publicUser2Key = user2Key.getPublicKey().toString('base64');
+          
+          const user1SharedKey = user1Key.computeSecret(publicUser2Key, 'base64', 'hex');
+          const user2SharedKey = user2Key.computeSecret(publicUser1Key, 'base64', 'hex');
+          
+          privateUsers[0].key = user1SharedKey;
+          privateUsers[1].key = user2SharedKey;
+          io.emit("encryption", privateUsers);
+        }
+        //  privateUsers[socket.id] = username;
          //this is where we can create generate the keys for the users
          //store it as an another to our username
-
+         console.log("DEBUG- Printing the private users on the server side");
          console.log(privateUsers);
-         //socket.emit(privateUSer -- usernames, keys, socketsID)
+         //socket.emit(privateUSer -- usernames, keys, socketsID);
+         //Emit the user there.
        });
      } else {
        console.log("No more than two users in private chat");   
@@ -144,9 +171,7 @@ const initChat = (_server) => {
     //This is the place where the message is outgoing
     //wherever you see on, it means DO THIS WHEN YOU RECIEVE BLAH FROM SERVER
     socket.on('priv-message-outgoing', (data) => {
-      //call the encrypt data here
-      //data.id
-      console.log("This data coming from this socket and this username" + data.user + " " + data.id);
+      console.log("This encrypted data coming from this socket and this username" + data.user + " " + data.id);
       console.log(data);
       let receiverId;
       for(let i = 0; i < 2; i++) {
@@ -180,3 +205,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
