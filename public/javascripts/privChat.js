@@ -6,21 +6,21 @@ const msg_send = document.querySelector('#user-send');
 const user_msg = document.querySelector('#user-msg');
 const mainDiv = document.querySelector('#chatMain');
 const username = mainDiv.dataset.username;
-const myEmail = mainDiv.dataset.email;
-const friendData = {};
+// const myEmail = mainDiv.dataset.email;
+// const friendData = {};
 
-const getFriendsData = () => new Promise((res, req) => {
-  fetch('/addFriend/data')
-  .then(res => res.json())
-  .then(json => {
-    // friendData.friends = json;
-    friendData.friends = json.filter(f => f.email === myEmail);
-    console.log(JSON.stringify(friendData.friends));
-    res();
-  });
-});
+// const getFriendsData = () => new Promise((res, req) => {
+//   fetch('/addFriend/data')
+//   .then(res => res.json())
+//   .then(json => {
+//     // friendData.friends = json;
+//     friendData.friends = json.filter(f => f.email === myEmail);
+//     console.log(JSON.stringify(friendData.friends));
+//     res();
+//   });
+// });
 
-getFriendsData();
+// getFriendsData();
 
 socket.emit("private-connection", getFriendsData());
 

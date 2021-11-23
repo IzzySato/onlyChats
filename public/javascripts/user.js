@@ -20,13 +20,13 @@ getFriendsData();
 
 const appendFriends = (friendData) => {
   console.log(friendData);
-  let div = document.querySelector("#friendsDiv");
-  let ul  = document.createElement("ul");
+  const div = document.querySelector("#friendsDiv");
+  const ul  = document.createElement("ul");
   div.classList.add('friendsUl');
   for(let i = 0; i < friendData.length; i++) {
-    let li = document.createElement("li");
+    const li = document.createElement("li");
     li.classList.add(`myFriend`);
-    li.innerHTML = `<p>${friendData[i].friendName}</p>`
+    li.innerHTML = `<a href="/privChat/${friendData[i].friendName}">${friendData[i].friendName}</p>`
     ul.appendChild(li);
   }
   div.appendChild(ul);

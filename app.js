@@ -127,18 +127,18 @@ const initChat = (_server) => {
 
 
     /**PRIVATE CHAT LOGIC */
-    if(Object.keys(privateUsers).length < 2) {
-      socket.on("private-connection", (friendData) => {
-        console.log("printing");
-        console.log(friendData);
-        privateUsers[socket.id] = friendData.friends.email;
-        console.log(privateUsers);
-      });
-    } else {
-      //fix this with friend logic
-      //Check if the username is the friend of other username being added along with the length
-      console.log("No more than two users in private chat");   
-    }
+    // if(Object.keys(privateUsers).length < 2) {
+    //   socket.on("private-connection", (friendData) => {
+    //     console.log("printing");
+    //     console.log(friendData);
+    //     privateUsers[socket.id] = friendData.friends.email;
+    //     console.log(privateUsers);
+    //   });
+    // } else {
+    //   //fix this with friend logic
+    //   //Check if the username is the friend of other username being added along with the length
+    //   console.log("No more than two users in private chat");   
+    // }
 
 
     socket.on('priv-message-outgoing', (data) => {
