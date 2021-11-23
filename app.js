@@ -127,29 +127,35 @@ const initChat = (_server) => {
 
 
     /**PRIVATE CHAT LOGIC */
-    // if(Object.keys(privateUsers).length < 2) {
-    //   socket.on("private-connection", (friendData) => {
-    //     console.log("printing");
-    //     console.log(friendData);
-    //     privateUsers[socket.id] = friendData.friends.email;
-    //     console.log(privateUsers);
-    //   });
-    // } else {
-    //   //fix this with friend logic
-    //   //Check if the username is the friend of other username being added along with the length
-    //   console.log("No more than two users in private chat");   
-    // }
+     if(Object.keys(privateUsers).length < 2) {
+       socket.on("private-connection", (username) => {
+         privateUsers[socket.id] = username;
+         //this is where we can create generate the keys for the users
+         //store it as an another to our username
+
+         console.log(privateUsers);
+         //socket.emit(privateUSer -- usernames, keys, socketsID)
+       });
+     } else {
+       console.log("No more than two users in private chat");   
+     }
 
 
+    //This is the place where the message is outgoing
+    //wherever you see on, it means DO THIS WHEN YOU RECIEVE BLAH FROM SERVER
     socket.on('priv-message-outgoing', (data) => {
+      //call the encrypt data here
+      //data.id
       console.log("This data coming from this socket and this username" + data.user + " " + data.id);
       console.log(data);
       let receiverId;
       for(let i = 0; i < 2; i++) {
         if(Object.keys(privateUsers)[i] != data.id) {
+          //identifying the receiver!
           receiverId = Object.keys(privateUsers)[i];
         }
       }
+      //decrypt data here
       io.to(receiverId).emit("priv-message-incoming", data);
     });
   });

@@ -6,31 +6,28 @@ const msg_send = document.querySelector('#user-send');
 const user_msg = document.querySelector('#user-msg');
 const mainDiv = document.querySelector('#chatMain');
 const username = mainDiv.dataset.username;
-// const myEmail = mainDiv.dataset.email;
-// const friendData = {};
 
-// const getFriendsData = () => new Promise((res, req) => {
-//   fetch('/addFriend/data')
-//   .then(res => res.json())
-//   .then(json => {
-//     // friendData.friends = json;
-//     friendData.friends = json.filter(f => f.email === myEmail);
-//     console.log(JSON.stringify(friendData.friends));
-//     res();
-//   });
-// });
 
-// getFriendsData();
-
-socket.emit("private-connection", getFriendsData());
+socket.emit("private-connection", username);
 
 
 //socket.emit("private-connection", friendData);
+//I can get you keys here
+
+//{a, b}
+
+//How do I toggle between knowing who is the sender and who is the reciever
+
+// socket.on("encryption", (data) => {
+//     console.log(data);
+// })
 
 
 msg_send.addEventListener('click' , () => {
+    //SENDER
     let data = {
         user: username,
+        //this the value that we need to encrypt and decrypt
         msg: user_msg.value,
         id: socket.id
     };
