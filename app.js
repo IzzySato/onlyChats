@@ -153,7 +153,7 @@ const initChat = (_server) => {
           
           privateUsers[0].key = user1SharedKey;
           privateUsers[1].key = user2SharedKey;
-          io.emit("encryption", privateUsers);
+          // io.emit("encryption", privateUsers);
         }
         //  privateUsers[socket.id] = username;
          //this is where we can create generate the keys for the users
@@ -171,17 +171,73 @@ const initChat = (_server) => {
     //This is the place where the message is outgoing
     //wherever you see on, it means DO THIS WHEN YOU RECIEVE BLAH FROM SERVER
     socket.on('priv-message-outgoing', (data) => {
-      console.log("This encrypted data coming from this socket and this username" + data.user + " " + data.id);
-      console.log(data);
+      // console.log("This encrypted data coming from this socket and this username " + data.user + " " + data.id);
+      // console.log(data);
+
+      let senderSharedKey;
+      for(let i= 0; i < privateUsers.length; i++) {
+          if (privateUsers[i].id === socket.id) {
+            senderSharedKey = privateUsers[i].key;
+          }
+      }
+      const IV = crypto.randomBytes(16);
+      const cipher = crypto.createCipheriv(
+          'aes-256-gcm',
+          Buffer.from(senderSharedKey, 'hex'),
+          IV
+      );
+
+      let encrypted = cipher.update(data.msg, 'utf8', 'hex');
+      encrypted += cipher.final('hex');
+
+      const auth_tag = cipher.getAuthTag().toString('hex');
+
+      const payload = IV.toString('hex') + encrypted + auth_tag;
+
+      const payload64 = Buffer.from(payload, 'hex').toString('base64');
+      console.log(" Printing the Encrypted");
+      console.log(payload64);
+      //payload one is the encrypted message
       let receiverId;
       for(let i = 0; i < 2; i++) {
-        if(Object.keys(privateUsers)[i] != data.id) {
-          //identifying the receiver!
-          receiverId = Object.keys(privateUsers)[i];
+        if(privateUsers[i].id != data.id) {
+          receiverId = privateUsers[i].id
         }
       }
       //decrypt data here
-      io.to(receiverId).emit("priv-message-incoming", data);
+      const receiverPayload = Buffer.from(payload64, 'base64').toString('hex');
+
+      const receiver_iv = receiverPayload.substr(0, 32);
+      const receiver_encrypted = receiverPayload.substr(32, receiverPayload.length - 32 - 32);
+      const receiver_auth_tag = receiverPayload.substr(receiverPayload.length - 32, 32);
+
+      
+      let receiverSharedKey;
+      for(let i= 0; i < privateUsers.length; i++) {
+          if (privateUsers[i].id === receiverId) {
+            receiverSharedKey = privateUsers[i].key;
+          }
+      }
+      try{
+        const decipher = crypto.createDecipheriv(
+          'aes-256-gcm',
+          Buffer.from(receiverSharedKey, 'hex'),
+          Buffer.from(receiver_iv, 'hex')
+        );
+  
+        decipher.setAuthTag(Buffer.from(receiver_auth_tag, 'hex'));
+  
+        let decrypted = decipher.update(receiver_encrypted, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+        //find the public key for receiverid 
+        data.msg = decrypted;
+        console.log("Printing the decrypted message:  " + decrypted);   
+        io.to(receiverId).emit("priv-message-incoming", data);
+        
+      } catch (error) {
+        console.log(error);
+      }
+      
     });
   });
 };
