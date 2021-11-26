@@ -15,8 +15,9 @@ router.get('/', (req, res) => {
 router.get('/:friendName', (req, res) => {
   if (req.isAuthenticated()) {
     const { user = [] } = req;
+    const { friendName } = req.params;
     const { name = '', email } = (user[0] || {});
-    res.render('privChat', { name, email });
+    res.render('privChat', { name, email, friendName});
   } else {
     res.redirect('login');
   }
