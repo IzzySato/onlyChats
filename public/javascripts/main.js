@@ -2,6 +2,7 @@ import * as Signup from './signup.js';
 import * as Login from './login.js';
 import * as Util from './util.js';
 import * as AddFriend from './addFriend.js';
+import * as User from './user.js';
 
 //handling button clicks
 const processClick = (target) => {
@@ -29,6 +30,8 @@ const processClick = (target) => {
 
 //handling all functions
 window.addEventListener('DOMContentLoaded', () => {
+  User.getFriendsData();
+  User.appendFriends();
   //navigation icons message
   const navIcons = document.querySelectorAll('.mIcon');
   navIcons.forEach(i => {
