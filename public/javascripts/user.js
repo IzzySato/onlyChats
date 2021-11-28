@@ -26,7 +26,7 @@ const appendFriends = (friendData) => {
   for(let i = 0; i < friendData.length; i++) {
     const li = document.createElement("li");
     li.classList.add(`myFriend`);
-    li.innerHTML = `<a href="/privChat/${friendData[i].friendName}">${friendData[i].friendName}</p>`
+    li.innerHTML = `<div style="transform: translate(25%, 65%)"><a href="/privChat/${friendData[i].friendName}">${friendData[i].friendName}</div></p>`
     ul.appendChild(li);
   }
   div.appendChild(ul);
