@@ -195,7 +195,7 @@ const initChat = (_server) => {
       const payload = IV.toString('hex') + encrypted + auth_tag;
 
       const payload64 = Buffer.from(payload, 'hex').toString('base64');
-      console.log(" Printing the Encrypted");
+      console.log("Printing the Encrypted");
       console.log(payload64);
       //payload one is the encrypted message
       let receiverId;
@@ -231,7 +231,6 @@ const initChat = (_server) => {
         decrypted += decipher.final('utf8');
         //find the public key for receiverid 
         data.msg = decrypted;
-        console.log("Printing the decrypted message:  " + decrypted);   
         io.to(receiverId).emit("priv-message-incoming", data);
         
       } catch (error) {
