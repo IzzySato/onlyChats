@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 :root {
-  --background-color: #94D1A9;
+  --background-color: #d7e7ff;
   --background-color-two: #526cd4;
   --background-color-three: #fafafa;
   --font-color-one: #252a6d;
-  --font-color-two: #E9E9E9;
+  --font-color-two: #e9e9e9;
+  --font-color-three: #10063a;
   --main-color: #1ab98c;
   --point-color: #b7d339;
   --sub-color: #1E3179;
@@ -76,10 +77,11 @@ ul.nav {
   padding: 0;
 }
 
+
 #headerDiv {
   background-color: var(--sub-color);
   width: 100%;
-  padding: 3% 0;
+  padding: 1.5% 0;
 }
 
 #hamburgerMenuNav {
@@ -91,7 +93,7 @@ ul.nav {
   position: relative;
 }
 
-.nav li{
+.nav li {
   display: inline-block;
   margin-right: 7%;
   position: relative;
@@ -108,7 +110,8 @@ ul.nav {
   font-size: 1.7rem;
 }
 
-.navLis:hover, .fas:hover {
+.navLis:hover,
+.fas:hover {
   color: var(--point-color);
   cursor: pointer;
 }
@@ -119,6 +122,7 @@ ul.nav {
   right: 5%;
   top: 1%;
 }
+
 #moreNavDiv {
   position: relative;
 }
@@ -197,6 +201,7 @@ ul.nav {
 #signupBtn:hover {
   background-color: var(--btn-hover-color-one);
 }
+
 /* login page */
 #loginSection {
   background-color: var(--background-color-two);
@@ -215,7 +220,7 @@ ul.nav {
   margin: 0 auto;
   background-color: var(--google-color);
   width: 40%;
-  margin-top:3%;
+  margin-top: 3%;
 }
 
 #google:hover {
@@ -227,7 +232,7 @@ ul.nav {
 #userNameDiv {
   background-color: var(--background-color);
   text-align: center;
-  color: var(--font-color-two);
+  color: var(--font-color-three);
   padding: 7% 0;
   font-size: 1.6rem;
 }
@@ -312,3 +317,139 @@ footer {
   background-color: var(--background-color);
 }
 
+/* Style inputs, select elements and textareas */
+input[type=text], select, textarea{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #259dff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+/* Style the container */
+.container {
+  border-radius: 5px;
+  background-color: #d7e7ff;
+  padding-top: 20px;
+  padding-left: 200px;
+  padding-right:200px;
+}
+
+/* Floating column for labels: 25% width */
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+
+/** < ---- /**/
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #9db6ec;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}

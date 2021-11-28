@@ -1,6 +1,6 @@
 <%- include('partials/head')%>
 <%- include('partials/nav')%>
-<div id="addFriendDiv">
+<!-- <div id="addFriendDiv">
   <h2>Add Friend</h2>
   <div class="inputDiv">
     <label for="name"></label>
@@ -11,6 +11,30 @@
     <input id="friendEmail" class="signupLoginInputs" type="email" name="friendEmail" placeholder="email" required>
   </div>
   <button id="addFriendbtn">Add</button>
-  
+</div> -->
+
+
+<div class="container">
+  <form action="action_page.php">
+    <div class="row">
+      <div class="col-25">
+        <label for="fname">Friend's Name</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="fname" name="firstname" placeholder="Friend's name...">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">Email Address</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="lname" name="lastname" placeholder="Friend's email...">
+      </div>
+    </div>
+    <div class="row">
+      <input type="submit" id="addFriendbtn" value="Add Friend">
+    </div>
+  </form>
 </div>
 <%- include('partials/footer') %>
