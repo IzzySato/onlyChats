@@ -86,25 +86,13 @@ const users = {};
 const privateUsers = [];
 
 const initChat = (_server) => {
-  // socket.io setup
-  // bascially saying that run the sockets on this server that I have created
   const io = require("socket.io")(_server);
 
-  //we have to provide an event here, whenever someone comes to connect to the sever
-  //All the users are given a unique socket id - they basically become a socket in the eyes of the server
-  //This event will be called whenever a user joing our stuff
   io.on("connection",(socket) => {
       console.log(socket.id);
-      //basically addding all the users to the object
-      //the event name has to be the same as what we emit in the client
       socket.on("new-user-joined", (username) => {
         users[socket.id] = username;
-
-        //we are broadcasting this to all the sockets 
-        //we are emmiting the username to the client now
         socket.broadcast.emit('user-connected', username);
-
-          //WE want to TARGET ALL THE SOCKETS AND NOT JUST THE ONE THAT IS BEING CONNECTED
           io.emit("user-list", users);
       });
 
@@ -153,26 +141,13 @@ const initChat = (_server) => {
           
           privateUsers[0].key = user1SharedKey;
           privateUsers[1].key = user2SharedKey;
-          // io.emit("encryption", privateUsers);
         }
-        //  privateUsers[socket.id] = username;
-         //this is where we can create generate the keys for the users
-         //store it as an another to our username
-         console.log("DEBUG- Printing the private users on the server side");
-         console.log(privateUsers);
-         //socket.emit(privateUSer -- usernames, keys, socketsID);
-         //Emit the user there.
        });
      } else {
        console.log("No more than two users in private chat");   
      }
-
-
-    //This is the place where the message is outgoing
-    //wherever you see on, it means DO THIS WHEN YOU RECIEVE BLAH FROM SERVER
     socket.on('priv-message-outgoing', (data) => {
-      // console.log("This encrypted data coming from this socket and this username " + data.user + " " + data.id);
-      // console.log(data);
+
 
       let senderSharedKey;
       for(let i= 0; i < privateUsers.length; i++) {
@@ -195,7 +170,7 @@ const initChat = (_server) => {
       const payload = IV.toString('hex') + encrypted + auth_tag;
 
       const payload64 = Buffer.from(payload, 'hex').toString('base64');
-      console.log("Printing the Encrypted");
+      console.log("Printing the Encrypted Message");
       console.log(payload64);
       //payload one is the encrypted message
       let receiverId;
