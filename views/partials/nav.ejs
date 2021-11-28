@@ -8,23 +8,39 @@
   </nav>
     <nav id="mainNav">
       <ul class="nav">
-        <li><a href="/index"><i data-name="home" data-class="homeDiv" class="mIcon fas fa-home"></i></a><div class="msg homeDiv"></div></li>
+       <li> <a href="/index"><div class="logo"> <img src="https://i.imgur.com/TtPZ7m3.png" alt="logo" width=187 height=70></div></a></li>
+        <li><a href="/index"><i data-name="home" data-class="homeDiv" class="mIcon fas fa-home"></i></a><div class="homeDiv"></div></li>
         <li><a href="/addFriend"><i data-name="friend" data-class="friendDiv" class="mIcon fas fa-user-plus"></i></a><div class="msg friendDiv"></div></li>
         <li><a href="/chat"><i data-name="chat" data-class="chatDiv" class="mIcon fas fa-comments"></i></a><div class="msg chatDiv"></div></li>
-        <li><a href=""><i data-name="group" data-class="groupDiv" class="mIcon fas fa-user-friends"></i></a><div class="msg groupDiv"></div></li>
+        <li><a href="/chat"><i data-name="group" data-class="groupDiv" class="mIcon fas fa-user-friends"></i></a><div class="msg groupDiv"></div></li>
         <li><a href="/user"><i data-name="user" data-class="userDiv" class="mIcon fas fa-user"></i></a><div class="msg userDiv"></div></li>
       </ul>
       <div id="moreFunction">
-        <i data-name="menu" data-class="menuDiv" class="fas fa-caret-down"><div class="msg menuDiv"></div></i>
+        <i data-name="menu" data-class="menuDiv" class="fas fa-caret-down"><div class="msg menuDiv">
+        </div></i>
       </div>
     </nav>
 </div>
 <div id="moreNavDiv">
   <ul id="moreNav">
-    <li class="navLis">LINK 1</li>
-    <li class="navLis">LINK 2</li>
-    <li class="navLis">LINK 3</li>
-    <li class="navLis">LINK 4</li>
+    <li class="navLis"><a href="/index">Home</a></li>
+    <li class="navLis"><a href="/addFriend">Add Friend</a></li>
+    <li class="navLis"><a href="/chat">Chat</a></li>
+    <li class="navLis"><a href="/user">User</a></li>
     <li id="logoutLi" class="navLis"><a href="/logout">LOGOUT</a><i class="fas fa-sign-out-alt"></i></li>
   </ul>
 </div>
+
+
+<style>
+  @media screen and (max-width: 600px) {
+    ul.nav {
+      display: none;
+    }
+
+    ul.hamburgerMenu {
+      background-color: #252a6d;
+
+    }
+  }
+    </style>
